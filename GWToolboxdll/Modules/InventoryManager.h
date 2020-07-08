@@ -56,6 +56,8 @@ public:
     void LoadSettings(CSimpleIni* ini) override;
     void SaveSettings(CSimpleIni* ini) override;
 
+    static void CmdIdentify(const wchar_t *message, int argc, LPWSTR *argv);
+
     // Find an empty (or partially empty) inventory slot that this item can go into
     std::pair<GW::Bag*, uint32_t> GetAvailableInventorySlot(GW::Item* like_item = nullptr);
     // Find an empty (or partially empty) inventory slot that this item can go into. !entire_stack = Returns slots that are the same item, but won't hold all of them.
@@ -148,7 +150,10 @@ public:
             return interaction & 0x20000;
         }
     };
+
 public:
+    Item* GetIdentificationKit();
+    GW::Item* GetSameItem(GW::Item *like_item, GW::Bag *bag);
     Item* GetNextUnsalvagedItem(Item* salvage_kit = nullptr, Item* start_after_item = nullptr);
     Item* GetNextUnidentifiedItem(Item* start_after_item = nullptr);
     void Identify(Item* item, Item* kit);
